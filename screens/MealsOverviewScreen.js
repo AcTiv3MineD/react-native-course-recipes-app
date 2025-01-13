@@ -9,6 +9,9 @@ function MealsOverviewScreen({ navigation, route }) {
 
     navigation.setOptions({
         title: category.title,
+        headerStyle: {
+            backgroundColor: category.color,
+        },
     })
 
     function renderMealItem(itemData) {
