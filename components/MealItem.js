@@ -1,12 +1,13 @@
 import { Text, Pressable, View, Image, StyleSheet } from "react-native";
 import shadows from "../styles/shadows";
 
-function MealItem({meal}) {
+function MealItem({meal, onPress}) {
     return (
         <View style={[styles.MealItem, shadows.sm]}>
             <Pressable
                 android_riple={{color: '#CCC'}}
                 style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+                onPress={onPress}
             >
                 <View>
                     <Image

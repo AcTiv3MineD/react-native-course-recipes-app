@@ -1,11 +1,9 @@
 import {
-    Platform,
     Pressable,
     StyleSheet,
     Text,
     View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import shadows from "../styles/shadows";
 
 function CategoryGridTile({title, color, onPress}) {

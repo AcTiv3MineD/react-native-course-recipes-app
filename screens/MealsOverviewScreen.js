@@ -15,7 +15,11 @@ function MealsOverviewScreen({ navigation, route }) {
     })
 
     function renderMealItem(itemData) {
-        return <MealItem meal={itemData.item} />
+        return <MealItem meal={itemData.item} onPress={handleMealItemPress.bind(this, itemData.item.id)} />
+    }
+
+    function handleMealItemPress(mailId) {
+        navigation.navigate('MealItem', {mealId: mailId});
     }
 
     return (
