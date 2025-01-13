@@ -6,10 +6,11 @@ import {
     View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import shadows from "../styles/shadows";
 
 function CategoryGridTile({title, color, onPress}) {
     return (
-        <View style={styles.gridItem}>
+        <View style={[styles.gridItem, shadows.sm]}>
             <Pressable
                 style={({pressed}) => [
                     styles.button,
@@ -34,17 +35,6 @@ const styles = StyleSheet.create({
         margin: 16,
         height: 150,
         borderRadius: 8,
-
-        // ANDROID
-        elevation: 4,
-        overflow:  Platform.OS == 'android' ? 'hidden' : 'visible', // avoid ripple effect from overflowing
-
-        // IOS
-        backgroundColor: 'white', // FOR SHADOW TO BE SHOWN ON IOS, WE NEED TO DECLARE A BACKGROUND
-        shadowColor: 'black',
-        shadowOpacity: 0.25,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
     },
     button: {
         flex: 1,
