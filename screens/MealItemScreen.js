@@ -2,13 +2,16 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import List from "../components/List";
+import { useLayoutEffect } from "react";
 
 function MealItemScreen({navigation, route}) {
     const meal = MEALS.find(meal => meal.id === route.params.mealId);
 
-    navigation.setOptions({
-        title: meal.title,
-    })
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: meal.title,
+        })
+    }, [navigation, meal]);
 
     return (
         <ScrollView style={styles.rootContainer}>
@@ -33,6 +36,7 @@ export default MealItemScreen;
 const styles = StyleSheet.create({
     rootContainer: {
         marginBottom: 16,
+        flex: 1,
     },
     innerContainer: {
         margin: 26,
