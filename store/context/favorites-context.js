@@ -1,3 +1,4 @@
+// NOT IN USE, just kept as part of the project for future reference
 import { createContext, useState } from "react";
 
 export const FavoritesContext = createContext({
