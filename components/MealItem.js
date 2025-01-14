@@ -1,5 +1,6 @@
 import { Text, Pressable, View, Image, StyleSheet } from "react-native";
 import shadows from "../styles/shadows";
+import MealDetails from "./MealDetails";
 
 function MealItem({meal, onPress}) {
     return (
@@ -16,11 +17,7 @@ function MealItem({meal, onPress}) {
                     />
                     <Text style={styles.title}>{meal.title}</Text>
                 </View>
-                <View style={styles.details}>
-                    <Text style={styles.detailItem}>{meal.duration}m</Text>
-                    <Text style={styles.detailItem}>{meal.complexity.toUpperCase()}</Text>
-                    <Text style={styles.detailItem}>{meal.affordability.toUpperCase()}</Text>
-                </View>
+                <MealDetails meal={meal} />
             </Pressable>
         </View>
     )
@@ -49,14 +46,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         padding: 8,
-    },
-    details: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 8,
-    },
-    detailItem: {
-        marginHorizontal: 4,
-        fontSize: 12,
     },
 });
