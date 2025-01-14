@@ -1,6 +1,6 @@
 import { Text, Pressable, View, Image, StyleSheet } from "react-native";
-import shadows from "../styles/shadows";
-import MealDetails from "./MealDetails";
+import shadows from "../../styles/shadows";
+import MealDetails from "../MealDetails";
 
 function MealItem({meal, onPress}) {
     return (
