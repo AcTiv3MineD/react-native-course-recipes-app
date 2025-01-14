@@ -2,13 +2,18 @@ import { Image, ScrollView, Share, StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import List from "../components/List";
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 function MealItemScreen({navigation, route}) {
+    const favoriteMealsCtx = useContext(FavoritesContext);
+
     const meal = MEALS.find(meal => meal.id === route.params.mealId);
 
-    const headerButtonPressHandler = async () => {
+    const isMealFavorite = favoriteMealsCtx.ids.includes(meal.id);
+
+    const shareMealItemHandler = async () => {
         try {
             await Share.share({
                 message: `Check out this recipe: ${meal.title}`,
@@ -18,14 +23,36 @@ function MealItemScreen({navigation, route}) {
         }
     }
 
+    function changeFavoriteStatusHandler() {
+        if(isMealFavorite) {
+            favoriteMealsCtx.removeFavorite(meal.id);
+            return;
+        }
+
+        favoriteMealsCtx.addFavorite(meal.id);
+    }
+
     useLayoutEffect(() => {
         navigation.setOptions({
             title: meal.title,
             headerRight: () => {
-                return <IconButton onPress={headerButtonPressHandler} />;
+                return <View style={styles.actionButtons}>
+                        <IconButton
+                            style={styles.actionButton}
+                            name={isMealFavorite ? 'star' : 'star-outline'}
+                            color='white'
+                            onPress={changeFavoriteStatusHandler}
+                        />
+                        <IconButton
+                            style={styles.actionButton}
+                            name='share-social'
+                            color='white'
+                            onPress={shareMealItemHandler}
+                        />
+                    </View>
             },
         })
-    }, [navigation, meal, headerButtonPressHandler]);
+    }, [navigation, meal, shareMealItemHandler]);
 
     return (
         <ScrollView style={styles.rootContainer}>
@@ -48,6 +75,14 @@ function MealItemScreen({navigation, route}) {
 export default MealItemScreen;
 
 const styles = StyleSheet.create({
+    actionButtons: {
+        minWidth: 50,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    actionButton: {
+        padding: 5,
+    },
     rootContainer: {
         marginBottom: 16,
         flex: 1,
